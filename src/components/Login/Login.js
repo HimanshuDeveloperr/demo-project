@@ -13,13 +13,18 @@ const Login = (props) => {
   const [formIsValid, setFormIsValid] = useState(false);
 
   useEffect(()=>{
-    setTimeout(()=>{
+    const identifier=setTimeout(()=>{
       console.log('form validity')
       setFormIsValid(
         enteredEmail.includes('@') && enteredPassword.trim().length > 6 && enteredCollege.trim().length>3
       );
 
     },500)
+    // returning cleanup function in first argument function of useeffect
+    return ()=>{
+      console.log('cleanup')
+      clearTimeout(identifier)
+    }
   },[enteredEmail,enteredPassword,enteredCollege])
 
   const emailChangeHandler = (event) => {
